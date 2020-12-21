@@ -1,11 +1,13 @@
 package screen;
 
+import core.Camera;
 import core.Scene;
 import window.Window;
 
 public class LevelScene extends Scene {
 
-    public LevelScene() {
+    public LevelScene(Camera camera) {
+        super(camera);
         System.out.println("Inside level scene.");
         Window.getInstance().r = 1;
         Window.getInstance().g = 1;

@@ -2,7 +2,10 @@ package core;
 
 public abstract class Scene {
 
-    public Scene() {}
+    protected Camera camera;
+    public Scene(Camera camera) {
+        this.camera = camera;
+    }
 
     public void init() {}
 

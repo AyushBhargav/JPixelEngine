@@ -1,10 +1,12 @@
 package window;
 
+import core.Camera;
 import core.Scene;
 import input.KeyListener;
 import input.MouseListener;
 import lombok.Getter;
 import lombok.Setter;
+import org.joml.Vector3f;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
@@ -35,19 +37,22 @@ public class Window {
 
     public float r = 1.0f, g = 1.0f, b = 1.0f, a = 1.0f;
 
+    private static Camera camera;
+
     private Window() {
         this.width = 1920;
         this.height = 1080;
         this.title = "Pixel engine";
+        camera = new Camera(new Vector3f(0.0f, 0.0f, 20.0f));
     }
 
     public static void changeScene(int newScene) {
         switch (newScene) {
             case 0:
-                currentScene = new LevelEditorScene();
+                currentScene = new LevelEditorScene(camera);
                 break;
             case 1:
-                currentScene = new LevelScene();
+                currentScene = new LevelScene(camera);
                 break;
             default:
                 assert false : "Unknown scene '" + newScene + "'";

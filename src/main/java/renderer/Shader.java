@@ -1,19 +1,16 @@
 package renderer;
 
-import jdk.internal.util.xml.impl.Input;
+import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Objects;
+import java.nio.FloatBuffer;
 import java.util.stream.Collectors;
 
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL20.*;
-import static org.lwjgl.opengl.GL20.glGetShaderInfoLog;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 public class Shader {
 
@@ -109,5 +106,12 @@ public class Shader {
 
     public void detach() {
         glUseProgram(0);
+    }
+
+    public void uploadMatrix4f(String var, Matrix4f matrix4f) {
+        int varLocation = glGetUniformLocation(shaderProgramId, var);
+        FloatBuffer floatBuffer = BufferUtils.createFloatBuffer(16);
+        matrix4f.get(floatBuffer);
+        glUniformMatrix4fv(varLocation, false, floatBuffer);
     }
 }
